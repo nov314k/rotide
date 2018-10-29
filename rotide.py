@@ -1,25 +1,25 @@
-
 from tkinter import *
-from tkinter.filedialog import *
+from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import asksaveasfilename
+from os.path import realpath
 
 def new_file(event=None):
     global file_name
     file_name = "Untitled"
-    root.title("Untitled")
+    root.title(file_name)
     content_text.delete(1.0, END)   
 
 def open_file(event=None):
     global file_name
-    input_file_name = askopenfilename(defaultextension=".txt",
-                                      filetypes=[
-                                          ("Text Documents", "*.txt"),
-                                          ("All Files", "*.*")])
+    #input_file_name = askopenfilename(defaultextension=".txt", filetypes=[("Text Documents", "*.txt"), ("All Files", "*.*")])
+    input_file_name = askopenfilename()
+    print(input_file_name)
     if input_file_name:
-        #file_name = input_file_name
-        root.title(format(os.path.realpath(input_file_name)))
+        root.title(realpath(input_file_name))
         content_text.delete(1.0, END)
-        with open(input_file_name) as _file:
-            content_text.insert(1.0, _file.read())
+        with open(input_file_name) as the_file:
+            content_text.insert(1.0, the_file.read())
+            file_name = input_file_name
 
 def write_to_file(output_file_name):
     try:
@@ -31,14 +31,12 @@ def write_to_file(output_file_name):
 
 def save_as(event=None):
     global file_name
-    input_file_name = asksaveasfilename(
-                        defaultextension=".txt",
-                        filetypes=[("Text Documents", "*.txt"),
-                                   ("All Files", "*.*")])
+    #input_file_name = asksaveasfilename(defaultextension=".txt", filetypes=[("Text Documents", "*.txt"), ("All Files", "*.*")])
+    input_file_name = asksaveasfilename()
     if input_file_name:
-        #file_name = input_file_name
         write_to_file(input_file_name)
-        root.title('{}'.format(os.path.basename(input_file_name)))
+        root.title(realpath(input_file_name))
+        file_name = input_file_name
 
 def save(event=None):
     global file_name
