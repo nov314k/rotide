@@ -160,3 +160,4 @@ content_text.bind('<Any-KeyPress>', on_content_changed)
 # Start the main loop
 root.mainloop()
 # TODO Bind root window X to exit_editor()
+# TODO Change from icons to capital letters, so that we don't need to carry icons around?
